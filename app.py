@@ -1,13 +1,6 @@
 import streamlit as st
 import pandas as pd
 # Load the saved machine learning model
-import sys
-import subprocess
-
-subprocess.check_call([
-    sys.executable, "-m", "pip", "install",
-    "joblib==1.5.2", "scikit-learn"
-])
 
 # ----------------------------------
 # 1. Page Configuration
