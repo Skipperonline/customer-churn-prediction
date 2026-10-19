@@ -1,7 +1,25 @@
 import streamlit as st
 import pandas as pd
 # Load the saved machine learning model
-import joblib
+import sys
+import os
+import streamlit as st
+
+st.write("Python version:", sys.version)
+st.write("Working directory:", os.getcwd())
+st.write("Requirements file exists:", os.path.exists("requirements.txt"))
+
+if os.path.exists("requirements.txt"):
+    with open("requirements.txt", "r") as f:
+        st.code(f.read())
+
+try:
+    import joblib
+    st.success(f"joblib version: {joblib.__version__}")
+except ImportError as e:
+    st.error(f"joblib import failed: {e}")
+
+st.stop()
 
 # ----------------------------------
 # 1. Page Configuration
