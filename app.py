@@ -1,37 +1,21 @@
 import streamlit as st
 import pandas as pd
 # Load the saved machine learning model
-import os
 import sys
-import streamlit as st
-
-st.title("Deployment Diagnostics")
-
-requirements_path = os.path.join(os.getcwd(), "requirements.txt")
-
-st.write("Python version:", sys.version)
-st.write("Requirements path:", requirements_path)
-st.write("Requirements exists:", os.path.isfile(requirements_path))
-
-if os.path.isfile(requirements_path):
-    with open(requirements_path, "r", encoding="utf-8") as file:
-        requirements = file.read()
-
-    st.code(requirements)
-
-st.write("Python executable:", sys.executable)
-
-st.write("Installed packages:")
-
 import subprocess
 
-result = subprocess.run(
-    [sys.executable, "-m", "pip", "show", "joblib", "scikit-learn"],
-    capture_output=True,
-    text=True
-)
+# Install the dependencies needed by this app
+subprocess.check_call([
+    sys.executable, "-m", "pip", "install",
+    "joblib==1.5.2", "scikit-learn"
+])
 
-st.code(result.stdout or result.stderr)
+import joblib
+import streamlit as st
+
+st.success("joblib and scikit-learn installed successfully!")
+
+st.write("joblib version:", joblib.__version__)
 
 st.stop()
 
