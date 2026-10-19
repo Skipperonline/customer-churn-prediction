@@ -2,11 +2,36 @@ import streamlit as st
 import pandas as pd
 # Load the saved machine learning model
 import os
+import sys
 import streamlit as st
 
-st.write("Current directory:", os.getcwd())
-st.write("Files in current directory:", os.listdir("."))
-st.write("Files in parent directory:", os.listdir(".."))
+st.title("Deployment Diagnostics")
+
+requirements_path = os.path.join(os.getcwd(), "requirements.txt")
+
+st.write("Python version:", sys.version)
+st.write("Requirements path:", requirements_path)
+st.write("Requirements exists:", os.path.isfile(requirements_path))
+
+if os.path.isfile(requirements_path):
+    with open(requirements_path, "r", encoding="utf-8") as file:
+        requirements = file.read()
+
+    st.code(requirements)
+
+st.write("Python executable:", sys.executable)
+
+st.write("Installed packages:")
+
+import subprocess
+
+result = subprocess.run(
+    [sys.executable, "-m", "pip", "show", "joblib", "scikit-learn"],
+    capture_output=True,
+    text=True
+)
+
+st.code(result.stdout or result.stderr)
 
 st.stop()
 
