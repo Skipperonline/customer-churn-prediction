@@ -4,20 +4,10 @@ import pandas as pd
 import sys
 import subprocess
 
-# Install the dependencies needed by this app
 subprocess.check_call([
     sys.executable, "-m", "pip", "install",
     "joblib==1.5.2", "scikit-learn"
 ])
-
-import joblib
-import streamlit as st
-
-st.success("joblib and scikit-learn installed successfully!")
-
-st.write("joblib version:", joblib.__version__)
-
-st.stop()
 
 # ----------------------------------
 # 1. Page Configuration
